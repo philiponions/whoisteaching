@@ -8,7 +8,7 @@ const app = express();
 app.get('/get/:course/:number', function(req, res){
     let course = req.params.course
     let number = req.params.number
-    let url = 'https://apps.ualberta.ca/catalogue/course/cmput/101';
+    let url = 'https://apps.ualberta.ca/catalogue/course/' + course + "/" + number;
     let instructors = []
     request(url, async function(error, response, html) {
         if (!error) {
@@ -26,25 +26,15 @@ app.get('/get/:course/:number', function(req, res){
             let instructor  = $(e).text().replace(/(\s+)/g, ' ');
             if(!(instructors.indexOf(instructor) !== -1)){      
                 instructors.push(instructor)
-                // console.log(instructor)
             }
         })
         
+        console.log(instructors)
+        const sendData = await Promise.all (instructors.map(async (name) => {        
+            return getProfessorRatings(name)
+        }))
 
-        // const data = await Promise.all(
-        //     instructors.data.map(getProfessorRatings)
-        // )
-        // console.log(data)
-        let sendData = []
-        instructors.forEach((name) => {
-         
-            getProfessorRatings(name).then((res) => {
-                console.log("Grabbed prof")
-                sendData.push(res)
-                // console.log(sendData)
-            })
-        })
-        // console.log(data)
+        res.send(sendData)
     }
 })
 
@@ -54,9 +44,14 @@ async function getProfessorRatings(name) {
     // console.log("test")
     // name.forEach((name) => {
     
-    const teachers = await ratings.searchTeacher(name, "");
+    const teachers = await ratings.searchTeacher(name, "U2Nob29sLTE0MDc=");
+
+    if (!teachers[0]) {
+        console.log("found nothing")
+        return
+    }
+    
     const teacherIDs = teachers.map(teacher => teacher.id)
-    // console.log(teacherIDs)
     const info = await ratings.getTeacher(teacherIDs[0])
     const profObj = {
             firstName: info.firstName,
