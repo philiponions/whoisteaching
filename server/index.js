@@ -41,19 +41,24 @@ app.get('/get/:course/:number', function(req, res){
 });
 
 async function getProfessorRatings(name) {
-    // console.log("test")
-    // name.forEach((name) => {
-    
+
     const teachers = await ratings.searchTeacher(name, "U2Nob29sLTE0MDc=");
 
     if (!teachers[0]) {
-        console.log("found nothing")
-        return
+        const profName = name.split(" ")
+        const profObj = {
+            firstName: profName[0],
+            lastName: profName[1],
+            avgRating: null,
+            wouldTakeAgainPercent: null,
+            avgDifficulty: null
+        }    
+        return profObj   
     }
     
     const teacherIDs = teachers.map(teacher => teacher.id)
     const info = await ratings.getTeacher(teacherIDs[0])
-    console.log(info)
+    // console.log(info)
     const profObj = {
             firstName: info.firstName,
             lastName: info.lastName,
@@ -61,7 +66,7 @@ async function getProfessorRatings(name) {
             wouldTakeAgainPercent: info.wouldTakeAgainPercent,
             avgDifficulty: info.avgDifficulty
         }
-    console.log(profObj)
+    
     return profObj   
     // })    
 }
