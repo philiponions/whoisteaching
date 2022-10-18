@@ -47,7 +47,5 @@ let url = 'https://apps.ualberta.ca/catalogue/course/cmput/101';
                 
             }
         })
-        
-            //console.log(instructors)
     }
 })

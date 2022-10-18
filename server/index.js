@@ -6,6 +6,7 @@ const ratings = require('@mtucourses/rate-my-professors').default;
 const app = express();
 
 app.get('/get/:course/:number', function(req, res){
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
     let course = req.params.course
     let number = req.params.number
     let url = 'https://apps.ualberta.ca/catalogue/course/' + course + "/" + number;
@@ -16,7 +17,6 @@ app.get('/get/:course/:number', function(req, res){
             
         var $ = cheerio.load(html)
         var heading = $('.table-card-content')
-        // console.log(heading.text())
         const output = heading
         .children('div')
         .children('a')
@@ -65,8 +65,7 @@ async function getProfessorRatings(name) {
     return profObj   
     // })    
 }
-// getProfessorRatings("Marianne Morris")
 
-app.listen('3001');
-console.log('API is running on http://localhost:3001');
+app.listen('3002');
+console.log('API is running on http://localhost:3002');
 module.exports = app;
