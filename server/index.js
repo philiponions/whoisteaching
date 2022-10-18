@@ -53,11 +53,13 @@ async function getProfessorRatings(name) {
     
     const teacherIDs = teachers.map(teacher => teacher.id)
     const info = await ratings.getTeacher(teacherIDs[0])
+    console.log(info)
     const profObj = {
             firstName: info.firstName,
             lastName: info.lastName,
             avgRating: info.avgRating,
-            wouldTakeAgainPercent: info.wouldTakeAgainPercent
+            wouldTakeAgainPercent: info.wouldTakeAgainPercent,
+            avgDifficulty: info.avgDifficulty
         }
     console.log(profObj)
     return profObj   
