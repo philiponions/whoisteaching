@@ -1,0 +1,18 @@
+{
+  "name": "thissem",
+  "version": "1.0.0",
+  "description": "Website that tells you whether or not you should take a course based on professors teaching that semester",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Huey Gonzales",
+  "license": "ISC",
+  "dependencies": {
+    "@mtucourses/rate-my-professors": "^2.2.0",
+    "cheerio": "^1.0.0-rc.12",
+    "express": "^4.18.2",
+    "graphql-request": "^5.0.0",
+    "request": "^2.88.2"
+  }
+}
