@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios'
 import IconButton from '@mui/material/IconButton';
 import CircularIndeterminate from './Loading';
+import ProfessorItem from './ProfessorItem';
 
 function App() {
   const styles = {
@@ -58,7 +59,7 @@ function App() {
           }     
           {
             profList.map((e) => {
-              return <div>{e.firstName} {e.lastName}</div>
+              return <ProfessorItem item={e}/>
             })
           }
       </header>

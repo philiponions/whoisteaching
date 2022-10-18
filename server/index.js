@@ -29,7 +29,7 @@ app.get('/get/:course/:number', function(req, res){
             }
         })
         
-        console.log(instructors)
+        // console.log(instructors)
         const sendData = await Promise.all (instructors.map(async (name) => {        
             return getProfessorRatings(name)
         }))
