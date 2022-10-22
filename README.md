@@ -4,7 +4,7 @@ This is a website that allows you to view all the professors who are currently t
 
 ## How it works
 
-Given a valid course, the program obtains all instructors that are teaching that course for the current school year. It will then find all those instructors in Rate My Professor and get their ratings.
+Given a valid course, the program obtains all instructors that are teaching that course for the school year by grabbing their names in the University of Alberta catalogue. It will then find all those instructors in Rate My Professor and get their ratings.
 
 ## Tech Stack
 
