@@ -56,10 +56,10 @@ const PercentBar = (props) => {
     );
   };
   export function renderPercent(params) {
-    if (params.value !== null) {
-        return <PercentBar value={Number(params.value)} />;
+    if (params.value === null || params.value === "-1.0") {
+        return <div>N/A</div>
     }
     else {
-        return <div>N/A</div>
+        return <PercentBar value={Number(params.value)} />;
     }
   }

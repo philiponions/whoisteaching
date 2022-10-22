@@ -12,7 +12,7 @@ import { Pagination } from '@mui/material';
 import { Container } from '@mui/system';
 import ErrorSnackbar from './Components/ErrorSnackbar';
 import NotFoundError from './Components/NotFoundError';
-
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 function Main() {
   const makeStyles = theme => ({
@@ -59,6 +59,12 @@ function Main() {
     },
     errorPage: {
       marginTop: "20px"
+    },
+    githubIcon: {
+      position: 'absolute', 
+      right: 0,
+      padding: "5px",
+      color: "white"
     }
   }
 
@@ -120,7 +126,10 @@ function Main() {
   }
 
   return (    
-    <div className="Main" style={styles}>
+    <div className="Main" style={styles}>              
+      <a href = "https://github.com/philiponions/whoisteaching" target="_blank" style={styles.githubIcon}>
+        <GitHubIcon fontSize="large"/>
+      </a>    
       <header style={styles.header}>
         <div style={styles.bar}>
             <Typography variant="h2" style={styles.text}>Who is Teaching?</Typography>

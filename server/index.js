@@ -104,13 +104,35 @@ async function getProfessorRatings(name) {
             lastName: profName[1],
             avgRating: null,
             wouldTakeAgainPercent: null,
+            numRatings: 0,
+            link: null,
             avgDifficulty: null
         }    
         return profObj   
     }
     
     const teacherIDs = teachers.map(teacher => teacher.id)
-    const info = await ratings.getTeacher(teacherIDs[0])
+    
+    let index = 0
+
+    // Special case where the teacher has two profiles in Rate mr prof.
+    // Get the best rating out of all of them.
+    if (teacherIDs.length > 1) {
+        console.log("special case")
+        let bestRating = teacherIDs[0].avgRating
+        let i = 0
+        teacherIDs.forEach(async(e) => {            
+            const info = await ratings.getTeacher(e)
+            if (info.avgRating > bestRating) {
+                // console.log("best rating", bestRating)
+                bestRating = info.avgRating
+                index = i
+            }
+            i++;
+        })
+    }    
+
+    const info = await ratings.getTeacher(teacherIDs[index])
 
     const profObj = {
             id: uuidv4(),
@@ -118,6 +140,8 @@ async function getProfessorRatings(name) {
             lastName: info.lastName,
             avgRating: info.avgRating,
             wouldTakeAgainPercent: info.wouldTakeAgainPercent.toFixed(1),
+            numRatings: info.numRatings,
+            link: "https://www.ratemyprofessors.com/professor?tid=" + info.legacyId, 
             avgDifficulty: info.avgDifficulty
         }
 
