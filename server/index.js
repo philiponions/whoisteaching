@@ -12,11 +12,17 @@ app.get('/get/:course/:number', function(req, res){
     let number = req.params.number
     let url = 'https://apps.ualberta.ca/catalogue/course/' + course + "/" + number;
     request(url, async function(error, response, html) {
-        if (!error) {
-
+        if (error) {
+            res.send({error: error})
+        }
+        else {
             let result = []
             var $ = cheerio.load(html)
-            var heading = $('.card')         
+            var heading = $('.card')  
+            console.log(heading.html())
+            if (!heading.html()) {
+                res.send({error: "not found"})
+            }
             
             // Card element represents the container for the semester
             heading.each(async (_, e) => {
@@ -67,9 +73,9 @@ app.get('/get/:course/:number', function(req, res){
                 if (result.length >= heading.length){                    
                     res.send(result.sort(compare))   
                 }
-            })
-            
-        }})
+            })            
+        }
+    })
 })
 
 /*

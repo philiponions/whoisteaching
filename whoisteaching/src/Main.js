@@ -11,6 +11,7 @@ import DataGridDemo from './Components/DataGrid';
 import { Pagination } from '@mui/material';
 import { Container } from '@mui/system';
 import ErrorSnackbar from './Components/ErrorSnackbar';
+import NotFoundError from './Components/NotFoundError';
 
 
 function Main() {
@@ -55,6 +56,9 @@ function Main() {
     sampleTextField: {
       color: "white",
       marginTop: "10px"
+    },
+    errorPage: {
+      marginTop: "20px"
     }
   }
 
@@ -62,6 +66,7 @@ function Main() {
   const [numberInput, setNumberInput] = useState("")
   const [profList, setProfList] = useState([])
   const [pageIndex, setPageIndex] = useState(1)
+  const [notFoundError, setNotFoundError] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [emptyFieldDetected, setEmptyFieldDetected] = useState(false)
   const emptyFieldMessage = "You must enter all requested fields."
@@ -77,9 +82,16 @@ function Main() {
       const url = `http://localhost:3002/get/${courseInput}/${numberInput}`
       console.log(url) 
       setLoaded(true)      
-      axios.get(url).then((response) => {       
-        console.log(response.data)
-        setProfList(response.data)      
+      axios.get(url).then((response) => {               
+        if (response.data.error) {
+          setNotFoundError(true)
+        }
+        else {          
+          if (notFoundError) {
+            setNotFoundError(false)
+          }
+          setProfList(response.data)      
+        }
         setLoaded(false)
       })
     }
@@ -123,7 +135,8 @@ function Main() {
             <Typography style={styles.sampleTextField}>Ex) Course name: AN SC, Catalogue num: 101</Typography>
         </div>
           {!loaded ? <></> : <CircularIndeterminate/>}   
-          {profList.length && !loaded? <div>            
+          {notFoundError && !loaded ? <NotFoundError styling={styles.errorPage}/> : null}
+          {profList.length && !loaded && !notFoundError ? <div>            
             <Container style={styles.paginationContainer}>
               <Pagination count={profList.length} page={pageIndex} color="primary" onChange={changePageIndex}/>
             </Container>
