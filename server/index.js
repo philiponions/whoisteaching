@@ -18,8 +18,7 @@ app.get('/get/:course/:number', function(req, res){
         else {
             let result = []
             var $ = cheerio.load(html)
-            var heading = $('.card')  
-            console.log(heading.html())
+            var heading = $('.card')              
             if (!heading.html()) {
                 res.send({error: "not found"})
             }
@@ -63,8 +62,7 @@ app.get('/get/:course/:number', function(req, res){
                     },
                     instructors: instructorInfo
                 }
-                result.push(data)  
-                //console.log(result)
+                result.push(data)                  
 
                 // I'm not sure how to res send after the loop is done so I did this instead
                 // This banks on the fact that we have at most two semester per page
@@ -117,14 +115,12 @@ async function getProfessorRatings(name) {
 
     // Special case where the teacher has two profiles in Rate mr prof.
     // Get the best rating out of all of them.
-    if (teacherIDs.length > 1) {
-        console.log("special case")
+    if (teacherIDs.length > 1) {        
         let bestRating = teacherIDs[0].avgRating
         let i = 0
         teacherIDs.forEach(async(e) => {            
             const info = await ratings.getTeacher(e)
-            if (info.avgRating > bestRating) {
-                // console.log("best rating", bestRating)
+            if (info.avgRating > bestRating) {                
                 bestRating = info.avgRating
                 index = i
             }
@@ -150,5 +146,4 @@ async function getProfessorRatings(name) {
 }
 
 app.listen('3002');
-console.log('API is running on http://localhost:3002');
 module.exports = app;

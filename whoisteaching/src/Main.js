@@ -76,17 +76,11 @@ function Main() {
   const [loaded, setLoaded] = useState(false)
   const [emptyFieldDetected, setEmptyFieldDetected] = useState(false)
   const emptyFieldMessage = "You must enter all requested fields."
-
   
-  useEffect(() => {
-    console.log(profList)
-  }, [profList])
-
   const getData = () => {
     if (courseInput.length && numberInput.length) {
       courseFormatter()
-      const url = `http://localhost:3002/get/${courseInput}/${numberInput}`
-      console.log(url) 
+      const url = `http://localhost:3002/get/${courseInput}/${numberInput}`      
       setLoaded(true)      
       axios.get(url).then((response) => {               
         if (response.data.error) {
@@ -113,8 +107,7 @@ function Main() {
    }
   }
 
-  const changePageIndex = (event, value) => {
-    console.log(value)
+  const changePageIndex = (event, value) => {    
     setPageIndex(value)
   }
 

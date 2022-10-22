@@ -3,10 +3,7 @@ import { Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import DataGridDemo from './DataGrid'
 
-const DataGridSemester = (props) => {
-    useEffect(() => {
-        console.log(props)
-    }, [props])
+const DataGridSemester = (props) => {    
   return (
     <div>
         {props.profList.map((e) => {

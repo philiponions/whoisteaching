@@ -69,10 +69,6 @@ export default function DataGridDemo(props) {
        marginTop: "15px"       
       }
     }
-  
-  const handleOnCellClick = (params) => {
-    console.log(params.value)
-  };
 
   return (
     <Container>
@@ -82,8 +78,7 @@ export default function DataGridDemo(props) {
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[10]}          
-          disableSelectionOnClick
-          onCellClick={handleOnCellClick}
+          disableSelectionOnClick          
           experimentalFeatures={{ newEditingApi: true }}
         />
       </div>        
