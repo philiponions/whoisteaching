@@ -9,5 +9,8 @@ const RatingStars = (props) => {
 }
 
 export function ratingStars(params) {
-    return <RatingStars value={Number(params.value)} />;
+    if (params.value !== null) {
+        return <RatingStars value={Number(params.value)} />;
+    }
+    else return <div>N/A</div>
   }

@@ -23,8 +23,9 @@ app.get('/get/:course/:number', function(req, res){
                 let instructors = []  
                 
                 // I don't know how to use cheerio this is probably bad i'm SORRY
-                const semester = $(e).children("h2").text().replace(/(\s+)/g, ' ')            
-                // console.log(semester)
+                const output = $(e).children("h2")
+                const id = output.attr().id               
+                const semester = output.text().replace(/(\s+)/g, ' ')            
                 
                 // This should return every instructor for the semester
                 const instructorOutput =  $(e).children(".card-body")
@@ -50,21 +51,37 @@ app.get('/get/:course/:number', function(req, res){
                 const instructorInfo = await Promise.all (instructors.map(async (name) => {        
                     return getProfessorRatings(name)}))            
                 data = {
-                    semester: semester,
+                    semester: {name: 
+                        semester,
+                        id: id
+                    },
                     instructors: instructorInfo
                 }
                 result.push(data)  
-                console.log(result)
+                //console.log(result)
 
                 // I'm not sure how to res send after the loop is done so I did this instead
                 // This banks on the fact that we have at most two semester per page
                 // This is really dumb. So refactor this code when you can.
                 // I don't know why it starts with winter instead of fall so i'm just gonna reverse it
-                if (result.length >= heading.length) res.send(result.reverse())
+                if (result.length >= heading.length){                    
+                    res.send(result.sort(compare))   
+                }
             })
             
         }})
 })
+
+/*
+* Compares the id of semesters
+*/
+function compare(a,b) {
+    if (a.semester.id < b.semester.id)
+       return -1;
+    if (a.semester.id > b.semester.id)
+      return 1;
+    return 0;
+  }
 
 /*
 * Grabs the professor's information on rate-my-prof using an npm package.
