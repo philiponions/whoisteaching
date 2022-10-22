@@ -2,17 +2,15 @@ import logo from './logo.svg';
 import './App.css';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import { useEffect, useState } from 'react';
 import axios from 'axios'
 import IconButton from '@mui/material/IconButton';
 import CircularIndeterminate from './Components/Loading';
-import ProfessorItem from './Components/ProfessorItem';
-import { DataGrid } from '@material-ui/data-grid';
-import { Box } from '@mui/material';
 import DataGridDemo from './Components/DataGrid';
-import DataGridSemester from './Components/DataGridSemester';
+import { Pagination } from '@mui/material';
+import { Container } from '@mui/system';
+
 
 function Main() {
   const makeStyles = theme => ({
@@ -47,13 +45,17 @@ function Main() {
     },
     dataGridDiv: {
       marginTop: "10px"
+    },
+    paginationContainer: {
+      display: "flex", 
+      justifyContent: "center"
     }
   }
 
   const [courseInput, setCourseInput] = useState("")
   const [numberInput, setNumberInput] = useState("")
   const [profList, setProfList] = useState([])
-  const [isSearching, setIsSearching] = useState("false")
+  const [pageIndex, setPageIndex] = useState(1)
   const [loaded, setLoaded] = useState(false)
   
   useEffect(() => {
@@ -70,10 +72,9 @@ function Main() {
     })
   }
 
-  const RenderDataGrid = () => {
-    if (profList.length || !loaded) {
-        return  <DataGridDemo style={styles.dataGrid} data={profList}/>
-    }
+  const changePageIndex = (event, value) => {
+    console.log(value)
+    setPageIndex(value)
   }
 
   return (
@@ -92,14 +93,14 @@ function Main() {
         </div>
           {!loaded ? <></> : <CircularIndeterminate/>}   
           {profList.length && !loaded? <div>            
-              {profList.map((e) => {
-                return <div style={styles.dataGridDiv}>
-                  <Typography variant="h4">{e.semester}</Typography>
-                  <DataGridDemo styles={styles.dataGrid} data={e.instructors}></DataGridDemo>
-                </div>
-              })}            
+            <Container style={styles.paginationContainer}>
+              <Pagination count={profList.length} page={pageIndex} color="primary" onChange={changePageIndex}/>
+            </Container>
+            <div style={styles.dataGridDiv}>
+                  <Typography variant="h4">{profList[pageIndex-1].semester}</Typography>
+                  <DataGridDemo styles={styles.dataGrid} data={profList[pageIndex].instructors}></DataGridDemo>
+            </div>
           </div> : null}   
-          
       </header>
     </div>
   );
