@@ -1,56 +1,48 @@
 import clsx from 'clsx';
-import { createTheme } from '@mui/material/styles';
-import { createStyles, makeStyles } from "@mui/material";
+import { createTheme, styled } from '@mui/material/styles';
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Box } from '@mui/material';
 const defaultTheme = createTheme();
-const useStyles = makeStyles(
-  (theme) =>
-    createStyles({
-      root: {
-        border: `1px solid ${theme.palette.divider}`,
-        position: 'relative',
-        overflow: 'hidden',
-        width: '100%',
-        height: 26,
-        borderRadius: 2,
-      },
-      value: {
-        position: 'absolute',
-        lineHeight: '24px',
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-      },
-      bar: {
-        height: '100%',
-        '&.low': {
-          backgroundColor: '#f44336',
-        },
-        '&.medium': {
-          backgroundColor: '#efbb5aa3',
-        },
-        '&.high': {
-          backgroundColor: '#088208a3',
-        },
-      },
-    }), {defaultTheme, index: 1});
+const styles = {
+  root: {
+    position: 'relative',
+    overflow: 'hidden',
+    width: '100%',
+    height: 26,
+    borderRadius: 2,
+  },
+  text: {
+    position: 'absolute',
+    lineHeight: '13px',    
+    display: 'flex',
+    justifyContent: 'center',
+    zIndex: "1",
+    width: "100%"
+  }
+}
+
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 15,
+  borderRadius: 5,
+  [`&.${linearProgressClasses.colorPrimary}`]: {
+    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+  },
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: 15,
+    backgroundColor: '#1a90ff'
+  },
+}));
 
 const PercentBar = (props) => {
     const { value } = props;
-    const valueInPercent = value;
-    const classes = useStyles();
+    const valueInPercent = value;    
   
     return (
-      <div className={classes.root}>
-        <div className={classes.value}>{`${valueInPercent.toLocaleString()} %`}</div>
-        <div
-          className={clsx(classes.bar, {
-            low: valueInPercent < 30,
-            medium: valueInPercent >= 30 && valueInPercent <= 70,
-            high: valueInPercent > 70,
-          })}
-          style={{ maxWidth: `${valueInPercent}%`}}
-        />
-      </div>
+      <Box sx={{ flexGrow: 1 }} style={styles.root}>       
+      <div style={styles.text}>{`${valueInPercent.toLocaleString()} %`}</div>
+      <BorderLinearProgress variant="determinate" value={value} />
+      </Box>
     );
   };
   export function renderPercent(params) {
