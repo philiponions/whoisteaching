@@ -2,6 +2,10 @@
 
 This is a website that allows you to view all the professors who are currently teaching a given course this year at the University of Alberta.
 
+## How it works
+
+Given a valid course, the program obtains all instructors that are teaching that course for the current school year. It will then find all those instructors in Rate My Professor and get their ratings.
+
 ## Tech Stack
 
 The front-end is built in React JS with the Material UI library. The back-end is built with Node JS and Express and consists of a web-scraper using Cheerio that gets data from the ualberta catalogue
