@@ -32,9 +32,7 @@ const useStyles = makeStyles(
           backgroundColor: '#088208a3',
         },
       },
-    }),
-  { defaultTheme },
-);
+    }), {defaultTheme, index: 1});
 
 const PercentBar = (props) => {
     const { value } = props;

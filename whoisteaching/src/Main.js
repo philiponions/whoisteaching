@@ -15,11 +15,6 @@ import NotFoundError from './Components/NotFoundError';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 function Main() {
-  const makeStyles = theme => ({
-        multilineColor:{
-            color:'red'
-        }
-  });
   
   const styles = {
     searchField: {
