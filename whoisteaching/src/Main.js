@@ -80,7 +80,7 @@ function Main() {
   const getData = () => {
     if (courseInput.length && numberInput.length) {
       courseFormatter()
-      const url = `http://localhost:3002/get/${courseInput}/${numberInput}`      
+      const url = `https://who-is-teaching-server.herokuapp.com/get/${courseInput}/${numberInput}`      
       setLoaded(true)      
       axios.get(url).then((response) => {               
         if (response.data.error) {

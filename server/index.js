@@ -3,11 +3,12 @@ const request = require('request');
 const cheerio = require('cheerio');
 const ratings = require('@mtucourses/rate-my-professors').default;
 const { v4: uuidv4 } = require('uuid');
+require("dotenv").config();
 
 const app = express();
 
 app.get('/get/:course/:number', function(req, res){
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     let course = req.params.course
     let number = req.params.number
     let url = 'https://apps.ualberta.ca/catalogue/course/' + course + "/" + number;
@@ -145,5 +146,7 @@ async function getProfessorRatings(name) {
 
 }
 
-app.listen('3002');
+app.listen(process.env.PORT || 3001, () => {
+    console.log("Connected.")
+});
 module.exports = app;
