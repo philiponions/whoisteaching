@@ -13,7 +13,7 @@ const NotFoundError = (props) => {
             <Typography variant='h3'>Course not found</Typography>
         </div>
         <p style={styles.emoji}>🤔</p>
-        <Typography variant='h6'>Looks like we couldn't find what you were looking for. Make sure you properly inputted the course name and number.</Typography>        
+        <Typography variant='h6'>Looks like we couldn't find what you were looking for. Make sure you properly put in the course name and number.</Typography>        
     </div>
   )
 }
