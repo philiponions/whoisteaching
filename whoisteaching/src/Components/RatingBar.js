@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { createTheme } from '@mui/material/styles';
-import { createStyles, makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from "@mui/material";
 const defaultTheme = createTheme();
 const useStyles = makeStyles(
   (theme) =>
