@@ -20,10 +20,11 @@ app.get('/get/:course/:number', function(req, res){
             
             // Card element represents the container for the semester
             heading.each(async (_, e) => {
-                let instructors = []   
+                let instructors = []  
                 
                 // I don't know how to use cheerio this is probably bad i'm SORRY
                 const semester = $(e).children("h2").text().replace(/(\s+)/g, ' ')            
+                // console.log(semester)
                 
                 // This should return every instructor for the semester
                 const instructorOutput =  $(e).children(".card-body")
@@ -58,7 +59,8 @@ app.get('/get/:course/:number', function(req, res){
                 // I'm not sure how to res send after the loop is done so I did this instead
                 // This banks on the fact that we have at most two semester per page
                 // This is really dumb. So refactor this code when you can.
-                if (result.length >= heading.length) res.send(result)
+                // I don't know why it starts with winter instead of fall so i'm just gonna reverse it
+                if (result.length >= heading.length) res.send(result.reverse())
             })
             
         }})

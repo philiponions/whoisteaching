@@ -12,6 +12,7 @@ import ProfessorItem from './Components/ProfessorItem';
 import { DataGrid } from '@material-ui/data-grid';
 import { Box } from '@mui/material';
 import DataGridDemo from './Components/DataGrid';
+import DataGridSemester from './Components/DataGridSemester';
 
 function Main() {
   const makeStyles = theme => ({
@@ -39,10 +40,13 @@ function Main() {
     bar: {
       backgroundColor: "#007c41",
       paddingBottom: "50px",
-      paddingTop: "100px"
+      paddingTop: "50px"
     },
     bottomBar: {
         backgroundColor: "#ffdb05"
+    },
+    dataGridDiv: {
+      marginTop: "10px"
     }
   }
 
@@ -87,7 +91,15 @@ function Main() {
             </div>
         </div>
           {!loaded ? <></> : <CircularIndeterminate/>}   
-          {(profList.length && !loaded)? <DataGridDemo style={styles.dataGrid} data={profList}/> : null}        
+          {profList.length && !loaded? <div>            
+              {profList.map((e) => {
+                return <div style={styles.dataGridDiv}>
+                  <Typography variant="h4">{e.semester}</Typography>
+                  <DataGridDemo styles={styles.dataGrid} data={e.instructors}></DataGridDemo>
+                </div>
+              })}            
+          </div> : null}   
+          
       </header>
     </div>
   );

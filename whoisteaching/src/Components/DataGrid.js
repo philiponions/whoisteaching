@@ -2,6 +2,8 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@material-ui/data-grid'
 import { Container } from '@mui/material';
+import { renderPercent, renderProgress } from './RatingBar';
+import { ratingStars } from './RatingStars';
 
 function getFullName(params) {
   return `${params.row.firstName || ''} ${params.row.lastName || ''}`;
@@ -18,12 +20,7 @@ const columns = [
     field: 'avgRating',
     headerName: 'Avg. Rating',    
     width: 180,    
-    valueFormatter: (params) => {
-      if (params.value == null) {
-        return 'N/A';
-      }
-      return `${params.value}`;
-    },
+    renderCell: ratingStars
   },
   {
     field: 'avgDifficulty',
@@ -42,12 +39,7 @@ const columns = [
     headerName: 'Would take again',    
     sortable: false,
     width: 300,    
-    valueFormatter: (params) => {
-      if (params.value == null) {
-        return 'N/A';
-      }
-      return `${params.value} %`;
-    },
+    renderCell: renderPercent
   },
 ];
 
@@ -68,8 +60,7 @@ export default function DataGridDemo(props) {
           rows={props.data}
           columns={columns}
           pageSize={10}
-          rowsPerPageOptions={[10]}
-          checkboxSelection
+          rowsPerPageOptions={[10]}          
           disableSelectionOnClick
           experimentalFeatures={{ newEditingApi: true }}
         />
