@@ -13,7 +13,7 @@ The front-end is built in React JS with the Material UI library. The back-end is
 along with a Rate My Professor API npm library that acts as a wrapper for the website's GraphQL API. Client is deployed in Netlify and the server is deployed in Heroku.
 Rate my prof API: https://www.npmjs.com/package/@mtucourses/rate-my-professors
 
-<img width="1275" alt="Screen Shot 2022-10-22 at 2 14 38 PM" src="https://user-images.githubusercontent.com/78581216/197360724-f7391845-a5c9-4fc1-908f-7b9ab2d66465.png">
+<img width="1213" alt="Screen Shot 2022-10-23 at 3 03 21 PM" src="https://user-images.githubusercontent.com/78581216/197418213-2bf5809c-9ecd-41d0-af5b-8a40a174b8fd.png">
 
 
 ## Notes
