@@ -10,10 +10,10 @@ const NotFoundError = (props) => {
   return (
     <div style={props.styling}>
         <div>
-            <Typography variant='h3'>Course not found</Typography>
+            <Typography variant='h3'>Course not found.</Typography>
         </div>
         <p style={styles.emoji}>🤔</p>
-        <Typography variant='h6'>Looks like we couldn't find what you were looking for. Make sure you properly put in the course name and number.</Typography>        
+        <Typography variant='h5'>Looks like we couldn't find the course you were looking for.</Typography>         
     </div>
   )
 }

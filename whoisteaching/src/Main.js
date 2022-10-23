@@ -8,24 +8,28 @@ import axios from 'axios'
 import IconButton from '@mui/material/IconButton';
 import CircularIndeterminate from './Components/Loading';
 import DataGridDemo from './Components/DataGrid';
-import { Pagination } from '@mui/material';
+import { Card, Pagination } from '@mui/material';
 import { Container } from '@mui/system';
 import ErrorSnackbar from './Components/ErrorSnackbar';
 import NotFoundError from './Components/NotFoundError';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import {styled} from '@mui/material/styles';
+import SearchBar from './Components/SearchBar';
 
 function Main() {
   
   const styles = {
     searchField: {
-      paddingTop: "10px",
-      paddingBottom: "10px", 
+      paddingTop: "15px",
+      paddingBottom: "15px", 
       display: "flex",
-      alignItems: "center",
-      backgroundColor: "white",
-      maxWidth: "100%",
+      alignItems: "center",          
       justifyContent: "center",
+      backgroundColor: "white",
+      maxWidth: "500px",
+      borderRadius: "10px",
+      display: "flex",     
+      boxShadow: "10px 5px 5px #005e31"
     },
     text: {
       color: "white"
@@ -36,7 +40,7 @@ function Main() {
     bar: {
       backgroundColor: "#007c41",
       paddingBottom: "20px",
-      paddingTop: "50px"
+      paddingTop: "50px",        
     },
     bottomBar: {
         backgroundColor: "#ffdb05"
@@ -129,17 +133,25 @@ function Main() {
    }
   }
 
-  const changePageIndex = (event, value) => {    
-    setPageIndex(value)
+  const searchFunctions = {
+    getData: getData,
+    pressedEnter: pressedEnter,
+    setCourseInput: setCourseInput,
+    setNumberInput: setNumberInput
+    
   }
-
-  const courseFormatter = () => {
-    let value = courseInput
-    value.toLowerCase()
-    value = value.replace(/ /g,"_")    
-    setCourseInput(value)
-  }
-
+  
+  
+      const changePageIndex = (event, value) => {    
+        setPageIndex(value)
+      }
+    
+      const courseFormatter = () => {
+        let value = courseInput
+        value.toLowerCase()
+        value = value.replace(/ /g,"_")    
+        setCourseInput(value)
+      }
   return (    
     <div className="Main" style={styles}>              
       <a href = "https://github.com/philiponions/whoisteaching" target="_blank" style={styles.githubIcon}>
@@ -149,14 +161,9 @@ function Main() {
         <div style={styles.bar}>
             <Typography variant="h2" style={styles.text}>Who is Teaching?</Typography>
             <p style={styles.text}>View the current professors who are teaching this year at the University of Alberta.</p>                        
-            <div style={styles.searchField}>
-              <div><TextField label="Course name" placeholder='Ex) AN SC'  onChange={(e) => setCourseInput(e.target.value)} onKeyDown={(e) => pressedEnter(e)}/></div>
-              <div><TextField label="Catalogue no." placeholder='Ex) 101' onChange={(e) => setNumberInput(e.target.value)} onKeyDown={(e) => pressedEnter(e)}/></div>
-              <IconButton onClick={getData}><SearchIcon /></IconButton>          
-            
-
-            </div>
-            {/* </Responsive> */}
+            <center>
+              <SearchBar styles={styles} getData={getData} pressedEnter={pressedEnter} setCourseInput={setCourseInput} setNumberInput={setNumberInput}></SearchBar>
+            </center>
             <Typography style={styles.sampleTextField}>Ex) Course name: AN SC, Catalogue num: 101</Typography>
         </div>
           {!loaded ? <></> : <CircularIndeterminate/>}   

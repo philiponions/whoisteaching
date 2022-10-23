@@ -14,11 +14,12 @@ const styles = {
   },
   text: {
     position: 'absolute',
-    lineHeight: '13px',    
+    lineHeight: '14px',    
     display: 'flex',
     justifyContent: 'center',
     zIndex: "1",
-    width: "100%"
+    width: "100%",
+    color: "white"
   }
 }
 
@@ -26,7 +27,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 15,
   borderRadius: 5,
   [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+    backgroundColor: '#115a9e',
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 15,

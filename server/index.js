@@ -8,7 +8,11 @@ require("dotenv").config();
 const app = express();
 
 app.get('/get/:course/:number', function(req, res){
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const allowedOrigins = ["https://who-is-teaching.netlify.app"];
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+   }
     let course = req.params.course
     let number = req.params.number
     let url = 'https://apps.ualberta.ca/catalogue/course/' + course + "/" + number;
